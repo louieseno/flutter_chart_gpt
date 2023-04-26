@@ -1,18 +1,24 @@
 class ChartData {
-  final String name;
-  final String value;
+  final String x;
+  final int y;
 
-  ChartData({required this.name, required this.value});
+  ChartData({required this.x, required this.y});
 
   Map<String, dynamic> toJson() => {
-        "name": name,
-        "value": value,
+        "x": x,
+        "y": y,
       };
 
   factory ChartData.fromJson(Map<String, dynamic> json) {
     return ChartData(
-      name: json['name'],
-      value: json['value'],
+      x: json['x'],
+      y: json['y'],
     );
+  }
+
+  static List<ChartData> chartDataFromGPT(List<Map<String, dynamic>> snapshot) {
+    return snapshot.map((item) {
+      return ChartData.fromJson(item);
+    }).toList();
   }
 }

@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.pink,
       ),
       home: const MyHomePage(title: 'Flutter Chart GPT'),
     );
@@ -33,6 +33,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<ChartData> results = [];
+  int chartIndex = 0;
+  final List<String> charts = [
+    'Bar',
+    'Column',
+    'Line',
+    'Pie',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +55,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: TextField(
                   maxLines: 4,
                   decoration: Styles.inputBoxStyle,
+                ),
+              ),
+              ChipsChoice<int>.single(
+                value: chartIndex,
+                onChanged: (val) => setState(() => chartIndex = val),
+                choiceItems: C2Choice.listFrom<int, String>(
+                  source: charts,
+                  value: (i, v) => i,
+                  label: (i, v) => v,
+                ),
+                choiceCheckmark: false,
+                choiceStyle: C2ChipStyle.filled(
+                  selectedStyle: const C2ChipStyle(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25),
+                    ),
+                  ),
                 ),
               ),
               Padding(

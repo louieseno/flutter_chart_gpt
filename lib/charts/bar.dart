@@ -11,7 +11,6 @@ class Bar extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
       child: SfCartesianChart(
-          title: ChartTitle(text: 'Bar Chart'),
           primaryXAxis: CategoryAxis(),
           primaryYAxis: NumericAxis(minimum: 0, maximum: 40, interval: 5),
           series: <ChartSeries<ChartData, String>>[

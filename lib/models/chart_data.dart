@@ -11,12 +11,12 @@ class ChartData {
 
   factory ChartData.fromJson(Map<String, dynamic> json) {
     return ChartData(
-      x: json['x'],
-      y: json['y'],
+      x: json['x'] ?? 'None',
+      y: json['y'] ?? 0,
     );
   }
 
-  static List<ChartData> chartDataFromGPT(List<Map<String, dynamic>> snapshot) {
+  static List<ChartData> chartDataFromGPT(List<dynamic> snapshot) {
     return snapshot.map((item) {
       return ChartData.fromJson(item);
     }).toList();

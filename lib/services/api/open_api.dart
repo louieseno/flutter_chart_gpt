@@ -23,9 +23,15 @@ class OpenAPI {
             "messages": [
               {
                 "role": "user",
-                "content":
-                    "Generate a valid JSON in which each element is an object. Strictly using this FORMAT and naming:"
-                        '[{ "x": "a", "y": 12, "color": "#4285F4" }] for the following description for SyncFusion flutter chart. $message'
+                "content": '''
+                  Generate a valid JSON in which each element is an object. Strictly using this FORMAT and naming:
+                  [{ "x": "a", "y": 12, "color": "#4285F4" }] for SyncFusion Flutter Chart. Make sure field x always stays named x. Instead of naming value field value in JSON, name it based on user metric.
+
+                  Make sure the format use double quotes and property names are string literals. 
+
+                  $message
+                  Provide JSON data only. 
+                '''
               }
             ],
             "temperature": 0.5,
@@ -36,8 +42,13 @@ class OpenAPI {
             "presence_penalty": 0.5,
           }));
       if (response.statusCode == 200) {
-        return ChartData.chartDataFromGPT(
-            jsonDecode(response.data['choices'][0]['message']['content']));
+        final choices = response.data['choices'];
+        final graphData = choices != null && choices.length > 0
+            ? choices[0]['message']['content'].trim()
+            : null;
+        if (graphData != null && graphData != '') {
+          return ChartData.chartDataFromGPT(jsonDecode(graphData));
+        }
       }
     } catch (error, trace) {
       print("Error: $error \n\n Trace: $trace");

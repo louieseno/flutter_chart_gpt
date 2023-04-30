@@ -1,6 +1,6 @@
 class ChartData {
   final String x;
-  final int y;
+  final num y;
 
   ChartData({required this.x, required this.y});
 
@@ -11,8 +11,8 @@ class ChartData {
 
   factory ChartData.fromJson(Map<String, dynamic> json) {
     return ChartData(
-      x: json['x'] ?? 'None',
-      y: json['y'] ?? 0,
+      x: json['x'],
+      y: json['y'],
     );
   }
 

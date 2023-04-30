@@ -30,7 +30,6 @@ class HomeScreen extends GetView<HomeController> {
                       controller: controller.graphEditingController,
                       maxLines: 4,
                       decoration: Styles.inputBoxStyle,
-                      textInputAction: TextInputAction.done,
                       onSubmitted: (_) => controller.generateGraph(),
                     ),
                     const SizedBox(height: 10.0),

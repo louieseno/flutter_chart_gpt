@@ -1,16 +1,34 @@
-# flutter_chart_gpt
+# Flutter Chart GPT
 
-A new Flutter project.
+A Flutter app that build charts based on text input using AI.
 
-## Getting Started
+## Install dependencies by running:
 
-This project is a starting point for a Flutter application.
+```bash
+cd <PROJECT_FOLDER>
+flutter pub get
+```
 
-A few resources to get you started if this is your first Flutter project:
+## Setup .env file:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Copy .env.example into .env. Your .env file should be at the project root like this:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+OPEN_API_KEY=""
+```
+
+- Then generate `env.g.dart` file by running:
+
+```
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+:bangbang: If you will encounter any problem like `env` is not updating, try troubleshooting by:
+
+- Delete the env.g.dart file and re-run the command to generate.
+
+- Cleaning all the generated files and purge the code-gen cache and re-run the command after to generate.
+
+```
+flutter pub run build_runner clean
+```

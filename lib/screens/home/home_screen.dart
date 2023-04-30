@@ -1,8 +1,6 @@
 import 'package:chips_choice/chips_choice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chart_gpt/screens/home/home_controller.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_chart_gpt/charts/custom_area_chart.dart';
 import 'package:flutter_chart_gpt/charts/custom_bar_chart.dart';
 import 'package:flutter_chart_gpt/charts/custom_column_chart.dart';
@@ -20,6 +18,7 @@ class HomeScreen extends GetView<HomeController> {
         appBar: AppBar(
           title: const Text('Flutter Chart GPT'),
         ),
+        resizeToAvoidBottomInset: false,
         body: Center(
           child: Column(
             children: [
@@ -28,9 +27,11 @@ class HomeScreen extends GetView<HomeController> {
                 child: Column(
                   children: [
                     TextField(
-                      controller: controller.textEditingController,
+                      controller: controller.graphEditingController,
                       maxLines: 4,
                       decoration: Styles.inputBoxStyle,
+                      textInputAction: TextInputAction.done,
+                      onSubmitted: (_) => controller.generateGraph(),
                     ),
                     const SizedBox(height: 10.0),
                     SizedBox(
@@ -71,16 +72,35 @@ class HomeScreen extends GetView<HomeController> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.end,
-                        children: const <Widget>[
-                          Text(
-                            'Chart Title',
-                            style: Styles.titleStyle,
-                          ),
-                          SizedBox(width: 20),
-                          Icon(
-                            Icons.edit,
-                            size: 18,
-                          ),
+                        children: <Widget>[
+                          !controller.isTitleEdit.value
+                              ? InkWell(
+                                  onTap: () =>
+                                      controller.updateTitleMode(context),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text(
+                                        controller.titleEditingController.text,
+                                        style: Styles.titleStyle,
+                                      ),
+                                      const SizedBox(width: 20),
+                                      const Icon(
+                                        Icons.edit,
+                                        size: 18,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : SizedBox(
+                                  width: 200,
+                                  child: TextField(
+                                    focusNode: controller.titleEditFocus,
+                                    controller:
+                                        controller.titleEditingController,
+                                    onSubmitted: (_) =>
+                                        controller.updateTitleMode(context),
+                                  ),
+                                ),
                         ],
                       ),
                     ),

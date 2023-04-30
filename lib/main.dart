@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chart_gpt/charts/bar.dart';
+import 'package:flutter_chart_gpt/charts/custom_area_chart.dart';
+import 'package:flutter_chart_gpt/charts/custom_bar_chart.dart';
+import 'package:flutter_chart_gpt/charts/custom_column_chart.dart';
+import 'package:flutter_chart_gpt/charts/custom_line_chart.dart';
+import 'package:flutter_chart_gpt/charts/custom_pie_chart.dart';
 import 'package:flutter_chart_gpt/models/chart_data.dart';
 import 'package:chips_choice/chips_choice.dart';
 
@@ -92,8 +96,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              Bar(
-                results: results,
+              CustomBarChart(
+                results: [
+                  ChartData(x: 'Monday', y: 50),
+                  ChartData(x: 'Tuesday', y: 10)
+                ],
               ),
             ],
           ),

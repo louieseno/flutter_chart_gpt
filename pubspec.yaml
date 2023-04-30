@@ -39,6 +39,7 @@ dependencies:
   envied: ^0.3.0
   dio: ^5.1.1
   chips_choice: ^3.0.0
+  get: ^4.6.5
 
 dev_dependencies:
   flutter_test:

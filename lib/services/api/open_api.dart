@@ -16,7 +16,7 @@ class OpenAPI {
     dio.options.headers['Authorization'] = "Bearer ${Env.openAPIKey}";
   }
 
-  Future<List<ChartData>> getGraphData() async {
+  Future<List<ChartData>> getGraphData(String message) async {
     try {
       final Response<dynamic> response = await dio.post(baseURL,
           data: jsonEncode({
@@ -25,7 +25,7 @@ class OpenAPI {
                 "role": "user",
                 "content":
                     "Generate a valid JSON in which each element is an object. Strictly using this FORMAT and naming:"
-                        '[{ "x": "a", "y": 12, "color": "#4285F4" }] for the following description for SyncFusion flutter chart. create a bar chart for milk consumption based on 3 data sets of consumption , Monday - 50 bottles, 20 remaining and 1 half'
+                        '[{ "x": "a", "y": 12, "color": "#4285F4" }] for the following description for SyncFusion flutter chart. $message'
               }
             ],
             "temperature": 0.5,

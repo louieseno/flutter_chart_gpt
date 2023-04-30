@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chart_gpt/charts/custom_area_chart.dart';
-import 'package:flutter_chart_gpt/charts/custom_bar_chart.dart';
-import 'package:flutter_chart_gpt/charts/custom_column_chart.dart';
-import 'package:flutter_chart_gpt/charts/custom_line_chart.dart';
-import 'package:flutter_chart_gpt/charts/custom_pie_chart.dart';
-import 'package:flutter_chart_gpt/models/chart_data.dart';
-import 'package:chips_choice/chips_choice.dart';
+import 'package:flutter_chart_gpt/route/app_binding.dart';
+import 'package:flutter_chart_gpt/route/app_pages.dart';
+import 'package:flutter_chart_gpt/screens/home/home_screen.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,113 +13,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.pink,
       ),
-      home: const MyHomePage(title: 'Flutter Chart GPT'),
+      getPages: AppPages.pages,
+      initialBinding: AppBinding(),
+      initialRoute: HomeScreen.route,
     );
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  List<ChartData> results = [];
-  int chartIndex = 0;
-  final List<String> charts = [
-    'Bar',
-    'Column',
-    'Line',
-    'Pie',
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              Padding(
-                padding: Styles.inputPadding,
-                child: TextField(
-                  maxLines: 4,
-                  decoration: Styles.inputBoxStyle,
-                ),
-              ),
-              ChipsChoice<int>.single(
-                value: chartIndex,
-                onChanged: (val) => setState(() => chartIndex = val),
-                choiceItems: C2Choice.listFrom<int, String>(
-                  source: charts,
-                  value: (i, v) => i,
-                  label: (i, v) => v,
-                ),
-                choiceCheckmark: false,
-                choiceStyle: C2ChipStyle.filled(
-                  selectedStyle: const C2ChipStyle(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(25),
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: Styles.titlePadding,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: const <Widget>[
-                    Text(
-                      'Chart Title',
-                      style: Styles.titleStyle,
-                    ),
-                    SizedBox(width: 20),
-                    Icon(
-                      Icons.edit,
-                      size: 18,
-                    ),
-                  ],
-                ),
-              ),
-              CustomBarChart(
-                results: [
-                  ChartData(x: 'Monday', y: 50),
-                  ChartData(x: 'Tuesday', y: 10)
-                ],
-              ),
-            ],
-          ),
-        ));
-  }
-}
-
-class Styles {
-  static const inputPadding =
-      EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0);
-
-  static final inputBoxStyle = InputDecoration(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      filled: true,
-      hintStyle: TextStyle(color: Colors.grey[400]),
-      hintText: "Describe your data",
-      fillColor: Colors.white70);
-
-  static const titlePadding =
-      EdgeInsets.symmetric(horizontal: 8.0, vertical: 15.0);
-
-  static const titleStyle = TextStyle(fontSize: 16.0);
 }

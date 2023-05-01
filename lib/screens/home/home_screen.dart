@@ -17,6 +17,13 @@ class HomeScreen extends GetView<HomeController> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Flutter Chart GPT'),
+          actions: [
+            Obx(() => controller.results.isNotEmpty
+                ? IconButton(
+                    onPressed: controller.saveGraph,
+                    icon: const Icon(Icons.download))
+                : const SizedBox(width: 0, height: 0))
+          ],
         ),
         resizeToAvoidBottomInset: false,
         body: Center(
@@ -44,7 +51,7 @@ class HomeScreen extends GetView<HomeController> {
               ),
               const Divider(),
               Obx(() {
-                if (controller.isGenerating.value == true) {
+                if (controller.isGenerating.value) {
                   return const CircularProgressIndicator();
                 }
                 return Column(
@@ -66,44 +73,55 @@ class HomeScreen extends GetView<HomeController> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: Styles.titlePadding,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          !controller.isTitleEdit.value
-                              ? InkWell(
-                                  onTap: () =>
-                                      controller.updateTitleMode(context),
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text(
-                                        controller.titleEditingController.text,
-                                        style: Styles.titleStyle,
+                    RepaintBoundary(
+                      key: controller.repaintKey,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: Styles.titlePadding,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                !controller.isTitleEdit.value
+                                    ? InkWell(
+                                        onTap: () =>
+                                            controller.updateTitleMode(context),
+                                        child: Row(
+                                          children: <Widget>[
+                                            Text(
+                                              controller
+                                                  .titleEditingController.text,
+                                              style: Styles.titleStyle,
+                                            ),
+                                            const SizedBox(width: 20),
+                                            if (!controller.isSavingGraph.value)
+                                              const Icon(
+                                                Icons.edit,
+                                                size: 18,
+                                              ),
+                                          ],
+                                        ),
+                                      )
+                                    : SizedBox(
+                                        width: 200,
+                                        child: TextField(
+                                          focusNode: controller.titleEditFocus,
+                                          controller:
+                                              controller.titleEditingController,
+                                          onTapOutside: (_) => controller
+                                              .updateTitleMode(context),
+                                          onSubmitted: (_) => controller
+                                              .updateTitleMode(context),
+                                        ),
                                       ),
-                                      const SizedBox(width: 20),
-                                      const Icon(
-                                        Icons.edit,
-                                        size: 18,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              : SizedBox(
-                                  width: 200,
-                                  child: TextField(
-                                    focusNode: controller.titleEditFocus,
-                                    controller:
-                                        controller.titleEditingController,
-                                    onSubmitted: (_) =>
-                                        controller.updateTitleMode(context),
-                                  ),
-                                ),
+                              ],
+                            ),
+                          ),
+                          const RenderChart()
                         ],
                       ),
-                    ),
-                    const RenderChart()
+                    )
                   ],
                 );
               }),

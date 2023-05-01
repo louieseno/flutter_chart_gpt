@@ -15,10 +15,13 @@ class CustomBarChart extends StatelessWidget {
           primaryXAxis: CategoryAxis(),
           series: <ChartSeries<ChartData, String>>[
             BarSeries<ChartData, String>(
-                dataSource: results,
-                xValueMapper: (ChartData data, _) => data.x,
-                yValueMapper: (ChartData data, _) => data.y,
-                color: const Color.fromRGBO(8, 142, 255, 1))
+              dataSource: results,
+              xValueMapper: (ChartData data, _) => data.x,
+              yValueMapper: (ChartData data, _) => data.y,
+              dataLabelSettings:
+                  const DataLabelSettings(isVisible: true, color: Colors.black),
+              pointColorMapper: (ChartData data, _) => data.color,
+            )
           ]),
     );
   }

@@ -28,6 +28,7 @@ class OpenAPI {
                   [{ "x": "a", "y": 12, "color": "#4285F4" }] for SyncFusion Flutter Chart. Make sure field x always stays named x. Instead of naming value field value in JSON, name it based on user metric.
 
                   Make sure the format use double quotes and property names are string literals. 
+                  Make sure to generate random hex color.
 
                   $message
                   Provide JSON data only. 

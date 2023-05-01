@@ -15,4 +15,9 @@ extension HexColor on Color {
       '${red.toRadixString(16).padLeft(2, '0')}'
       '${green.toRadixString(16).padLeft(2, '0')}'
       '${blue.toRadixString(16).padLeft(2, '0')}';
+
+  // SAMPLE USAGE:
+  // final Color color = HexColor.fromHex('#aabbcc');
+  // print(color.toHex());
+  // print(const Color(0xffaabbcc).toHex());
 }

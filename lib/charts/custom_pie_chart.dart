@@ -14,10 +14,13 @@ class CustomPieChart extends StatelessWidget {
             legend: Legend(isVisible: true),
             series: <CircularSeries>[
               PieSeries<ChartData, String>(
-                  dataSource: results,
-                  xValueMapper: (ChartData data, _) => data.x,
-                  yValueMapper: (ChartData data, _) => data.y,
-                  dataLabelSettings: const DataLabelSettings(isVisible: true))
+                dataSource: results,
+                xValueMapper: (ChartData data, _) => data.x,
+                yValueMapper: (ChartData data, _) => data.y,
+                dataLabelSettings: const DataLabelSettings(
+                    isVisible: true, color: Colors.black),
+                pointColorMapper: (ChartData data, _) => data.color,
+              )
             ]));
   }
 }

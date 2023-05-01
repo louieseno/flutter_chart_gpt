@@ -19,6 +19,9 @@ class CustomLineChart extends StatelessWidget {
             dataSource: results,
             xValueMapper: (ChartData data, _) => data.x,
             yValueMapper: (ChartData data, _) => data.y,
+            dataLabelSettings:
+                const DataLabelSettings(isVisible: true, color: Colors.black),
+            color: Colors.pink,
           )
         ],
       ),

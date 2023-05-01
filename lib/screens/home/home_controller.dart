@@ -35,7 +35,7 @@ class HomeController extends GetxController {
   void _showSnackBar(String content, bool status) {
     ScaffoldMessenger.of(repaintKey.currentContext!).showSnackBar(
       SnackBar(
-        backgroundColor: status ? Colors.pinkAccent : Colors.redAccent,
+        backgroundColor: status ? Colors.pink : Colors.redAccent,
         content: Text(
           content,
           style: const TextStyle(color: Colors.white),

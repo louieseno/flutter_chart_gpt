@@ -1,6 +1,6 @@
 # Flutter Chart GPT
 
-A Flutter app that build charts based on text input using AI.
+A Flutter app that builds charts based on text input using AI.
 
 ## Install dependencies by running:
 

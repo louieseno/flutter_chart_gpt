@@ -33,6 +33,10 @@ flutter pub run build_runner build --delete-conflicting-outputs
 flutter pub run build_runner clean
 ```
 
-## Demo
+## Graph Generate Demo
 
 ![](app-demo.gif)
+
+## Download Graph Demo
+
+![](save-demo.gif)
